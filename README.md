@@ -8,13 +8,22 @@
 
 ## About
 
-This package provides an interface to the [WikiText Long Term Dependency Language Modeling dataset](https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset)
+This package provides an interface to the [WikiText Long Term Dependency Language Modeling dataset](https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset).
 
 ## Usage
 
-WikiText exports 6 things: 4 Types (WikiText2v1, WikiText103v1,
-WikiText2RawV1, WikiText103RawV1) and 3 functions (trainfile,
-validationfile, testfile).
+WikiText exports the following types:
+
+* `WikiText2v1`
+* `WikiText103v1,`
+* `WikiText2RawV1`
+* `WikiText103RawV1`
+
+Wikitext also exports following 3 functions: 
+
+* `trainfile`
+* `validationfile`
+* `testfile`
 
 Downloading the datasets will happen automatically (with your
 approval) when you access them for the first time, courtesy of
