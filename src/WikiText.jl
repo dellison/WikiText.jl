@@ -7,31 +7,31 @@ using DataDeps
 
 abstract type WikiTextCorpus end
 
+abstract type WikiTextWordCorpus <: WikiTextCorpus end
+abstract type WikiTextCharCorpus <: WikiTextCorpus end
+
+struct WikiText2v1      <: WikiTextWordCorpus end
+struct WikiText103v1    <: WikiTextWordCorpus end
+struct WikiText2RawV1   <: WikiTextCharCorpus end
+struct WikiText103RawV1 <: WikiTextCharCorpus end
+
+trainfile(w) = filename(w, :train)
+validationfile(w) = filename(w, :valid)
+testfile(w) = filename(w, :test)
+
+
+# nothing below here is exported
 function filename(w::WikiTextCorpus, set)
     @assert set in [:train, :valid, :test]
     filename = "wiki.$set.$(suffix(w))"
     return joinpath(corpusdir(w), filename)
 end
 
-trainfile(w) = filename(w, :train)
-validationfile(w) = filename(w, :valid)
-testfile(w) = filename(w, :test)
-
-abstract type WikiTextWordCorpus <: WikiTextCorpus end
-abstract type WikiTextCharCorpus <: WikiTextCorpus end
-
 suffix(w::WikiTextWordCorpus) = "tokens"
 suffix(w::WikiTextCharCorpus) = "raw"
 
-struct WikiText2v1   <: WikiTextWordCorpus end
-struct WikiText103v1 <: WikiTextWordCorpus end
-
 corpusdir(w::WikiText2v1)   = datadep"WikiText-2-v1"
 corpusdir(w::WikiText103v1) = datadep"WikiText-103-v1"
-
-struct WikiText2RawV1   <: WikiTextCharCorpus end
-struct WikiText103RawV1 <: WikiTextCharCorpus end
-
 corpusdir(w::WikiText2RawV1)   = datadep"WikiText-2-raw-v1"
 corpusdir(w::WikiText103RawV1) = datadep"WikiText-103-raw-v1"
 
@@ -47,6 +47,7 @@ function __init__()
                      Author: Stephen Merity
                      License: CC-SA 3.0
                      Website: https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset
+                     Size: 12MB (unzipped)
                      
                      Wikitext-2 word level long term dependency language modeling dataset.
   
@@ -71,7 +72,7 @@ function __init__()
                      Author: Stephen Merity
                      License: CC-SA 3.0
                      Website: https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset
-                     Size: 181 MB
+                     Size: 516 MB
                      
                      Wikitext-103 word level long term dependency language modeling dataset.
       
@@ -94,6 +95,7 @@ function __init__()
                      Author: Stephen Merity
                      License: CC-SA 3.0
                      Website: https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset
+                     Size: 12 MB (unzipped)
                      
                      Wikitext-2 raw character level long term dependency language modeling dataset.
   
@@ -117,6 +119,7 @@ function __init__()
                      Author: Stephen Merity
                      License: CC-SA 3.0
                      Website: https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset
+                     Size: 518MB (unzipped)
                      
                      Wikitext-2 word level long term dependency language modeling dataset.
   
