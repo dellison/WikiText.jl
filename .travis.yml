@@ -5,6 +5,9 @@ os:
   - osx
 julia:
   - 0.6
+env:
+  global:
+    - DATADEPS_ALWAYS_ACCEPT=true DATADEPS_ALWAY_ACCEPT=true
 notifications:
   email: false
 git:
