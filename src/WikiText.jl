@@ -15,10 +15,9 @@ struct WikiText103v1    <: WikiTextWordCorpus end
 struct WikiText2RawV1   <: WikiTextCharCorpus end
 struct WikiText103RawV1 <: WikiTextCharCorpus end
 
-trainfile(w) = filename(w, :train)
-validationfile(w) = filename(w, :valid)
-testfile(w) = filename(w, :test)
-
+trainfile(wikitext)      = filename(wikitext, :train)
+validationfile(wikitext) = filename(wikitext, :valid)
+testfile(wikitext)       = filename(wikitext, :test)
 
 # nothing below here is exported
 function filename(w::WikiTextCorpus, set)
