@@ -21,11 +21,10 @@ approval) when you access them for the first time, courtesy of
 [DataDeps.jl](https://github.com/oxinabox/DataDeps.jl).
 
 ```julia
-
-	julia> using WikiText
-
-    julia> corpus = WikiText2v1()
-
-	julia> trainfile(corpus)
-	"/path/to/wiki.train.tokens"
+julia> Pkg.clone("https://github.com/dellison/WikiText.jl")
+julia> using WikiText
+julia> corpus = WikiText2v1()
+julia> trainfile(corpus)
+"/path/to/wiki.train.tokens"
 ```
+
