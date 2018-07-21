@@ -12,7 +12,8 @@ This package provides an interface to the [WikiText Long Term Dependency Languag
 
 ## Usage
 
-WikiText exports the following types:
+WikiText exports the following 4 types, corresponding to the 4
+available datasets:
 
 * `WikiText2v1`
 * `WikiText103v1,`
@@ -25,8 +26,8 @@ Wikitext also exports following 3 functions:
 * `validationfile`
 * `testfile`
 
-Downloading the datasets will happen automatically (with your
-approval) when you access them for the first time, courtesy of
+Downloading and unzipping the datasets will happen automatically (with
+your approval) when you access them for the first time, courtesy of
 [DataDeps.jl](https://github.com/oxinabox/DataDeps.jl).
 
 ```julia
