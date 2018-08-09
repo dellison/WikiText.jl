@@ -4,7 +4,9 @@ os:
   - linux
   - osx
 julia:
-  - 0.6
+  - 0.7
+  - 1.0
+  - nightly
 env:
   global:
     - DATADEPS_ALWAYS_ACCEPT=true DATADEPS_ALWAY_ACCEPT=true
