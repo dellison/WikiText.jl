@@ -9,7 +9,7 @@ julia:
   - nightly
 env:
   global:
-    - DATADEPS_ALWAYS_ACCEPT=true DATADEPS_ALWAY_ACCEPT=true
+    - DATADEPS_ALWAYS_ACCEPT=true
 notifications:
   email: false
 git:

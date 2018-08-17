@@ -33,8 +33,7 @@ your approval) when you access them for the first time, courtesy of
 ```julia
 julia> Pkg.clone("https://github.com/dellison/WikiText.jl")
 julia> using WikiText
-julia> corpus = WikiText2v1()
-julia> trainfile(corpus)
+julia> trainfile(WikiText2v1)
 "/path/to/wiki.train.tokens"
 ```
 

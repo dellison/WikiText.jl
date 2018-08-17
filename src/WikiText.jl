@@ -10,34 +10,35 @@ abstract type WikiTextCorpus end
 abstract type WikiTextWordCorpus <: WikiTextCorpus end
 abstract type WikiTextCharCorpus <: WikiTextCorpus end
 
-struct WikiText2v1      <: WikiTextWordCorpus end
-struct WikiText103v1    <: WikiTextWordCorpus end
-struct WikiText2RawV1   <: WikiTextCharCorpus end
-struct WikiText103RawV1 <: WikiTextCharCorpus end
+abstract type WikiText2v1      <: WikiTextWordCorpus end
+abstract type WikiText103v1    <: WikiTextWordCorpus end
+abstract type WikiText2RawV1   <: WikiTextCharCorpus end
+abstract type WikiText103RawV1 <: WikiTextCharCorpus end
 
-trainfile(wikitext)      = filename(wikitext, :train)
-validationfile(wikitext) = filename(wikitext, :valid)
-testfile(wikitext)       = filename(wikitext, :test)
+# API:
+trainfile(t::Type{<:WikiTextCorpus})      = filename(t, :train)
+validationfile(t::Type{<:WikiTextCorpus}) = filename(t, :valid)
+testfile(t::Type{<:WikiTextCorpus})       = filename(t, :test)
 
 # nothing below here is exported
-function filename(w::WikiTextCorpus, set)
+function filename(t::Type{<:WikiTextCorpus}, set)
     @assert set in [:train, :valid, :test]
-    filename = "wiki.$set.$(suffix(w))"
-    return joinpath(corpusdir(w), filename)
+    filename = "wiki.$set.$(suffix(t))"
+    return joinpath(corpusdir(t), filename)
 end
 
-suffix(w::WikiTextWordCorpus) = "tokens"
-suffix(w::WikiTextCharCorpus) = "raw"
+suffix(::Type{<:WikiTextWordCorpus}) = "tokens"
+suffix(::Type{<:WikiTextCharCorpus})   = "raw"
 
-corpusdir(w::WikiText2v1)   = datadep"WikiText-2-v1"
-corpusdir(w::WikiText103v1) = datadep"WikiText-103-v1"
-corpusdir(w::WikiText2RawV1)   = datadep"WikiText-2-raw-v1"
-corpusdir(w::WikiText103RawV1) = datadep"WikiText-103-raw-v1"
+corpusdir(::Type{WikiText2v1})      = datadep"WikiText-2-v1"
+corpusdir(::Type{WikiText103v1})    = datadep"WikiText-103-v1"
+corpusdir(::Type{WikiText2RawV1})   = datadep"WikiText-2-raw-v1"
+corpusdir(::Type{WikiText103RawV1}) = datadep"WikiText-103-raw-v1"
 
 
 function __init__()
 
-    # utility function
+    # utility function for a more transparent file structure
     moveup(x) = mv(x, joinpath("..", x))
 
     register(DataDep("WikiText-2-v1",
