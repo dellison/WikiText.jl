@@ -8,7 +8,7 @@
 
 ## About
 
-This package provides an interface to the [WikiText Long Term Dependency Language Modeling dataset](https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset).
+WikiText.jl provides an interface to the [WikiText Long Term Dependency Language Modeling dataset](https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset).
 
 ## Usage
 
@@ -33,7 +33,9 @@ your approval) when you access them for the first time, courtesy of
 ```julia
 julia> Pkg.clone("https://github.com/dellison/WikiText.jl")
 julia> using WikiText
-julia> trainfile(WikiText2v1)
+julia> corpus = WikiText2v1()
+julia> trainfile()
 "/path/to/wiki.train.tokens"
+julia> validfile()
+"/path/to/wiki.valid.tokens"
 ```
-

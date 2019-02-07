@@ -1,7 +1,8 @@
 module WikiText
 
-export WikiText2v1, WikiText103v1, WikiText2RawV1, WikiText103RawV1
-export trainfile, validationfile, testfile
+export
+    WikiText2v1, WikiText103v1, WikiText2RawV1, WikiText103RawV1,
+    trainfile, validfile, testfile
 
 using DataDeps
 
@@ -10,37 +11,34 @@ abstract type WikiTextCorpus end
 abstract type WikiTextWordCorpus <: WikiTextCorpus end
 abstract type WikiTextCharCorpus <: WikiTextCorpus end
 
-abstract type WikiText2v1      <: WikiTextWordCorpus end
-abstract type WikiText103v1    <: WikiTextWordCorpus end
-abstract type WikiText2RawV1   <: WikiTextCharCorpus end
-abstract type WikiText103RawV1 <: WikiTextCharCorpus end
+struct WikiText2v1      <: WikiTextWordCorpus end
+struct WikiText103v1    <: WikiTextWordCorpus end
+struct WikiText2RawV1   <: WikiTextCharCorpus end
+struct WikiText103RawV1 <: WikiTextCharCorpus end
 
 # API:
-trainfile(t::Type{<:WikiTextCorpus})      = filename(t, :train)
-validationfile(t::Type{<:WikiTextCorpus}) = filename(t, :valid)
-testfile(t::Type{<:WikiTextCorpus})       = filename(t, :test)
+trainfile(corpus) = filename(corpus, :train)
+validfile(corpus) = filename(corpus, :valid)
+testfile(corpus)  = filename(corpus, :test)
 
-# nothing below here is exported
-function filename(t::Type{<:WikiTextCorpus}, set)
+
+function filename(corpus::WikiTextCorpus, set)
     @assert set in [:train, :valid, :test]
-    filename = "wiki.$set.$(suffix(t))"
-    return joinpath(corpusdir(t), filename)
+    filename = "wiki.$set.$(suffix(corpus))"
+    return joinpath(corpusdir(corpus), filename)
 end
 
-suffix(::Type{<:WikiTextWordCorpus}) = "tokens"
-suffix(::Type{<:WikiTextCharCorpus})   = "raw"
+suffix(corpus::WikiTextWordCorpus)   = "tokens"
+suffix(corpus::WikiTextCharCorpus)   = "raw"
 
-corpusdir(::Type{WikiText2v1})      = datadep"WikiText-2-v1"
-corpusdir(::Type{WikiText103v1})    = datadep"WikiText-103-v1"
-corpusdir(::Type{WikiText2RawV1})   = datadep"WikiText-2-raw-v1"
-corpusdir(::Type{WikiText103RawV1}) = datadep"WikiText-103-raw-v1"
+corpusdir(corpups::WikiText2v1)      = datadep"WikiText-2-v1"
+corpusdir(corpups::WikiText103v1)    = datadep"WikiText-103-v1"
+corpusdir(corpups::WikiText2RawV1)   = datadep"WikiText-2-raw-v1"
+corpusdir(corpups::WikiText103RawV1) = datadep"WikiText-103-raw-v1"
 
 
 function __init__()
-
-    # utility function for a more transparent file structure
     moveup(x) = mv(x, joinpath("..", x))
-
     register(DataDep("WikiText-2-v1",
                      """
                      Dataset: WikiText-2 word level language modeling dataset
@@ -126,7 +124,7 @@ function __init__()
                      """,
                      "https://s3.amazonaws.com/research.metamind.io/wikitext/wikitext-103-raw-v1.zip",
                      "91c00ae287f0d699e18605c84afc9e45c192bc6b7797ff8837e5474655a33794",
-                                         post_fetch_method = function (zip)
+                     post_fetch_method = function (zip)
                          unpack(zip)
                          cd("wikitext-103-raw") do
                              moveup("wiki.train.raw")
