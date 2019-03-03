@@ -1,5 +1,5 @@
 name = "WikiText"
-uuid = "cb94ed24-2aa5-11e9-2529-2bbff1097334"
+uuid = "b61fe8a8-5644-50f8-8f27-7d732010995a"
 authors = ["David Ellison <davidehellison@gmail.com>"]
 version = "0.1.0"
 

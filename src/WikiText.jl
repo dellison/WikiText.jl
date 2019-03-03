@@ -1,8 +1,9 @@
 module WikiText
 
 export
-    WikiText2v1, WikiText103v1, WikiText2RawV1, WikiText103RawV1,
-    trainfile, validfile, testfile
+    WikiText2, WikiText103, WikiText2Raw, WikiText103Raw,
+    trainfile, validfile, testfile,
+    isunk, unk
 
 using DataDeps
 
@@ -11,10 +12,47 @@ abstract type WikiTextCorpus end
 abstract type WikiTextWordCorpus <: WikiTextCorpus end
 abstract type WikiTextCharCorpus <: WikiTextCorpus end
 
-struct WikiText2v1      <: WikiTextWordCorpus end
-struct WikiText103v1    <: WikiTextWordCorpus end
-struct WikiText2RawV1   <: WikiTextCharCorpus end
+"""
+    WikiText2v1
+
+WikiText2v1 corpus for word-level language modeling.
+See https://blog.einstein.ai/the-wikitext-long-term-dependency-language-modeling-dataset/.
+"""
+struct WikiText2v1 <: WikiTextWordCorpus end
+
+"""
+    WikiText103v1
+
+WikiText103v1 corpus for word-level language modeling.
+See https://blog.einstein.ai/the-wikitext-long-term-dependency-language-modeling-dataset/.
+"""
+struct WikiText103v1 <: WikiTextWordCorpus end
+
+"""
+    WikiText2RawV1
+
+WikiText2RawV1 corpus for character-level language modeling.
+See https://blog.einstein.ai/the-wikitext-long-term-dependency-language-modeling-dataset/.
+"""
+struct WikiText2RawV1 <: WikiTextCharCorpus end
+
+"""
+    WikiText103RawV1
+
+WikiText103RawV1 corpus for character-level language modeling.
+See https://blog.einstein.ai/the-wikitext-long-term-dependency-language-modeling-dataset/.
+"""
 struct WikiText103RawV1 <: WikiTextCharCorpus end
+
+const eos = "<eos>"
+
+const unk = "<unk>"
+isunk(token) = token == unk
+
+const WikiText2 = WikiText2v1
+const WikiText103 = WikiText103v1
+const WikiText2Raw = WikiText2RawV1
+const WikiText103Raw = WikiText103RawV1
 
 # API:
 trainfile(corpus) = filename(corpus, :train)
