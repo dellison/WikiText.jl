@@ -3,7 +3,7 @@ module WikiText
 export
     WikiText2, WikiText103, WikiText2Raw, WikiText103Raw,
     trainfile, validfile, testfile,
-    isunk, unk
+    isunk
 
 using DataDeps
 
@@ -44,9 +44,9 @@ See https://blog.einstein.ai/the-wikitext-long-term-dependency-language-modeling
 """
 struct WikiText103RawV1 <: WikiTextCharCorpus end
 
-const eos = "<eos>"
+const EOS = "<eos>"
 
-const unk = "<unk>"
+const UNK = "<unk>"
 isunk(token) = token == unk
 
 const WikiText2 = WikiText2v1
@@ -65,6 +65,7 @@ function filename(corpus::WikiTextCorpus, set)
     filename = "wiki.$set.$(suffix(corpus))"
     return joinpath(corpusdir(corpus), filename)
 end
+filename(corpus::Type{<:WikiTextCorpus}, set) = filename(corpus(), set)
 
 suffix(corpus::WikiTextWordCorpus)   = "tokens"
 suffix(corpus::WikiTextCharCorpus)   = "raw"
