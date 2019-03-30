@@ -4,12 +4,11 @@
 
 ## About
 
-WikiText.jl provides an interface to the [WikiText Long Term Dependency Language Modeling dataset](https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset).
+WikiText.jl provides an interface to the [WikiText Long Term Dependency Language Modeling dataset](https://blog.einstein.ai/the-wikitext-long-term-dependency-language-modeling-dataset/).
 
 ## Usage
 
-WikiText exports the following 4 types, corresponding to the 4
-available datasets:
+WikiText exports the following 4 types, corresponding to the 4 available datasets:
 
 * `WikiText2`
 * `WikiText103,`
@@ -22,16 +21,14 @@ Wikitext also exports following 3 functions:
 * `validationfile`
 * `testfile`
 
-Downloading and unzipping the datasets will happen automatically (with
-your approval) when you access them for the first time, courtesy of
-[DataDeps.jl](https://github.com/oxinabox/DataDeps.jl).
+Downloading and unzipping the datasets will happen automatically (with your approval) when you access them for the first time, courtesy of [DataDeps.jl](https://github.com/oxinabox/DataDeps.jl).
 
 ```julia
 julia> Pkg.clone("https://github.com/dellison/WikiText.jl")
 julia> using WikiText
 julia> corpus = WikiText2v1()
-julia> trainfile()
+julia> trainfile(corpus)
 "/path/to/wiki.train.tokens"
-julia> validfile()
+julia> validfile(corpus)
 "/path/to/wiki.valid.tokens"
 ```
